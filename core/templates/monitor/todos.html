@@ -1,0 +1,136 @@
+{% extends "layouts/base-form.html" %}
+
+{% block title %} Monitor {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content-form-page-header-title %} Monitores {% endblock content-form-page-header-title %}
+{% block content-form-page-header %}
+    <ul class="breadcrumbs">
+        <li class="nav-home">
+            <a href="#">
+                <i class="fas fa-home"></i>
+            </a>
+        </li>
+        <li class="separator">
+            <i class="flaticon-right-arrow"></i>
+        </li>
+        <li class="nav-item">
+            <a href="#">Monitores</a>
+        </li>
+        <li class="separator">
+            <i class="flaticon-right-arrow"></i>
+        </li>
+        <li class="nav-item">
+            <a href="#">Todos</a>
+        </li>
+    </ul>
+{% endblock content-form-page-header %}
+{% block content-form-form-tag-begin %} {% endblock content-form-form-tag-begin %}
+{% block content-form-content %}
+    <div class="card-header">
+        <div class="d-flex align-items-center">
+            <h4 class="card-title"></h4>
+            <a href="/monitor/" role="button"
+               class="btn btn-primary btn-round ml-auto">
+                <i class="fa fa-plus" title="Agregar"></i>Agregar
+            </a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive w-100">
+            <table id="add-row" class="display table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>NIF</th>
+                    <th>Razón social</th>
+                    <th>Dirección</th>
+                    <th>Problación</th>
+                    <th>Provincia</th>
+                    <th>Código Postal</th>
+                    <th>Teléfono</th>
+                    <th>Móvil</th>
+                    <th>e-mail</th>
+                    <th>Estado</th>
+                    <th style="width: 10%"></th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                    <th>ID</th>
+                    <th>NIF</th>
+                    <th>Razón social</th>
+                    <th>Dirección</th>
+                    <th>Problación</th>
+                    <th>Provincia</th>
+                    <th>Código Postal</th>
+                    <th>Teléfono</th>
+                    <th>Móvil</th>
+                    <th>e-mail</th>
+                    <th>Estado</th>
+                    <th></th>
+                </tr>
+                </tfoot>
+                <tbody>
+                {% for monitor in monitores %}
+                <tr>
+                    <td>{{ monitor.id }}</td>
+                    <td>{{ monitor.nif }}</td>
+                    <td>{{ monitor.razon_social }}</td>
+                    <td>{{ monitor.direccion }}</td>
+                    <td>{{ monitor.poblacion }}</td>
+                    <td>{{ monitor.provincia }}</td>
+                    <td>{{ monitor.codigo_postal }}</td>
+                    <td>{{ monitor.telefono }}</td>
+                    <td>{{ monitor.movil }}</td>
+                    <td>{{ monitor.email }}</td>
+                    <td>{{ monitor.estado }}</td>
+                    <td>
+                        <div class="form-button-action">
+                            <a href="/monitor/editar/{{ monitor.id }}" role="button"
+                               class="btn btn-link btn-primary btn-lg">
+                                <span class="fa fa-edit" title="Editar"></span>
+                            </a>
+                            <a href="/monitor/eliminar/{{ monitor.id }}" role="button"
+                               class="btn btn-link btn-danger">
+                                <span class="fa fa-times" title="Eliminar"></span>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock content-form-content %}
+{% block content-form-form-tag-end %} {% endblock content-form-form-tag-end %}
+
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}
+{% block javascripts-page %}
+	<script >
+		$(document).ready(function() {
+			// Add Row
+			$('#add-row').DataTable({
+				"pageLength": 5,
+			});
+
+			var action = '<td> <div class="form-button-action"> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';
+
+			$('#addRowButton').click(function() {
+				$('#add-row').dataTable().fnAddData([
+					$("#addName").val(),
+					$("#addPosition").val(),
+					$("#addOffice").val(),
+					action
+					]);
+				$('#addRowModal').modal('hide');
+
+			});
+		});
+	</script>
+{% endblock javascripts-page %}

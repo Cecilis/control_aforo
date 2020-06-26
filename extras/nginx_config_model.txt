@@ -1,0 +1,131 @@
+project's root directory with a command similar to this:
+gunicorn -c gunicorn/gunicorn-config.py your-project.wsgi
+gunicorn -c gunicorn/gunicorn-config.py core.wsgi
+===================================================
+
+#user  nginx;
+worker_processes  1;
+
+error_log  /var/log/nginx/error.log;
+error_log  /var/log/nginx/error.log  notice;
+error_log  /var/log/nginx/error.log  info;
+
+#pid        /var/run/nginx.pid;
+
+include /etc/nginx/modules.conf.d/*.conf;
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    #keepalive_timeout  0;
+    keepalive_timeout  65;
+    #tcp_nodelay        on;
+
+    #gzip  on;
+    #gzip_disable "MSIE [1-6]\.(?!.*SV1)";
+
+    server_tokens off;
+
+    include /etc/nginx/conf.d/*.conf;
+}
+
+# override global parameters e.g. worker_rlimit_nofile
+include /etc/nginx/*global_params;
+It worked
+
+
+
+=========================================================
+
+upstream merakimvsense-gunicorn {
+	server unix:/tmp/gunicorn.sock fail_timeout=0;
+}
+
+server {
+
+	listen 80 default;
+	client_max_body_size 4G;
+	server_name your-site.com;
+	keepalive_timeout 70;
+
+	access_log /var/log/nginx/access_log;
+	error_log /var/log/nginx/error_log;
+
+	root /opt/merakimvsense/core;
+
+	location /static/ {
+		autoindex on;
+		alias /opt/merakimvsense/core/static/;
+		expires 1M;
+		access_log off;
+		add_header Cache-Control "public";
+		proxy_ignore_headers "Set-Cookie";
+	}
+
+	location @proxy_merakimvsense {
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_set_header Host $http_host;
+		proxy_redirect off;
+		proxy_pass merakimvsense-gunicorn;
+	}
+
+	location / {
+		try_files $uri @proxy_merakimvsense;
+	}
+}
+
+
+=======================================
+working
+=======================================
+upstream merakimvsense-gunicorn {
+	server unix:/tmp/gunicorn.sock fail_timeout=0;
+}
+
+server {
+
+	listen 80 default;
+	client_max_body_size 4G;
+	server_name your-site.com;
+	keepalive_timeout 70;
+
+	access_log /var/log/nginx/access_log;
+	error_log /var/log/nginx/error_log;
+
+	root /opt/merakimvsense/core;
+
+	location /static/ {
+		autoindex on;
+		alias /opt/merakimvsense/core/static/;
+		expires 1M;
+		access_log off;
+		add_header Cache-Control "public";
+		proxy_ignore_headers "Set-Cookie";
+	}
+
+	location @proxy_merakimvsense {
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_set_header Host $http_host;
+		proxy_redirect off;
+		proxy_pass http://merakimvsense-gunicorn;
+	}
+
+	location / {
+		try_files $uri @proxy_merakimvsense;
+	}
+}

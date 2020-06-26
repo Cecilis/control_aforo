@@ -1,0 +1,57 @@
+{% extends "layouts/base-modal.html" %}
+
+{% block title %} Instalación {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block modal-content-title-dissmiss %}
+onclick="javascript:window.location='/instalacion/todos'"
+{% endblock modal-content-title-dissmiss %}
+{% block modal-content-form-tag-begin %}
+    {{ instalacion.management_form }}
+<!--form method="POST" class="post-form" action="/instalacion/actualizar/{{instalacion.id}}/"-->
+<form method="POST" class="post-form" action="/instalacion/actualizar/27/">
+    {% endblock modal-content-form-tag-begin %}
+    {% block modal-content-title %} Instalación {% endblock modal-content-title %}
+    {% block modal-content %}
+    {% csrf_token %}
+    ----------- id -----------
+    id : {{ instalacion.id }}
+    <br>
+    ---------  hhh -------------
+    {{ instalacion.as_p }}
+    <br>
+
+    <br>
+    -------- errores -----------
+    {% if instalacion.errors %}
+    {% for field in form %}
+    {% for error in field.errors %}
+    <div class="alert alert-danger">
+        <strong>{{ error|escape }}</strong>
+    </div>
+    {% endfor %}
+    {% endfor %}
+    {% for error in instalacion.non_field_errors %}
+    <div class="alert alert-danger">
+        {{field.name}} <strong>{{ error|escape }}</strong>
+    </div>
+    <br>
+    {% endfor %}
+    {% endif %}
+
+    ---------  hhh -------------
+    {% endblock modal-content %}
+    {% block modal-content-footer %}
+    <button type="submit" class="btn btn-success">Guardar</button>
+    <button type="reset" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+    <button type="button" class="btn btn-danger" data-dismiss="modal"
+            onclick="javascript:window.location='/instalacion/todos'">Cerrar
+    </button>
+    {% endblock modal-content-footer %}
+    {% block modal-content-form-tag-end %}
+</form>
+{% endblock modal-content-form-tag-end %}
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}

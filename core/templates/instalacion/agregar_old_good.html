@@ -1,0 +1,35 @@
+{% extends "layouts/base-modal.html" %}
+
+{% block title %} Instalación {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block modal-content-title-dissmiss %}
+onclick="javascript:window.location='/instalacion/todos'"
+{% endblock modal-content-title-dissmiss %}
+{% block modal-content-form-tag-begin %}
+<form method="POST" class="modal-form post-form" action="/instalacion/">
+    {% endblock modal-content-form-tag-begin %}
+    {% block modal-content-title %} Instalación {% endblock modal-content-title %}
+    {% block modal-content %}
+    {% csrf_token %}
+
+
+
+    
+    {{ instalacion }}
+
+    {% endblock modal-content %}
+    {% block modal-content-footer %}
+    <button type="submit" class="btn btn-success">Guardar</button>
+    <button type="reset" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+    <button type="button" class="btn btn-danger" data-dismiss="modal"
+            onclick="javascript:window.location='/instalacion/todos'">Cerrar
+    </button>
+    {% endblock modal-content-footer %}
+    {% block modal-content-form-tag-end %}
+</form>
+{% endblock modal-content-form-tag-end %}
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}

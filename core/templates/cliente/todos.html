@@ -1,0 +1,150 @@
+{% extends "layouts/base-form.html" %}
+
+{% block title %} Cliente {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content-form-page-header-title %} Clientes {% endblock content-form-page-header-title %}
+{% block content-form-page-header %}
+    <ul class="breadcrumbs">
+        <li class="nav-home">
+            <a href="#">
+                <i class="fas fa-users"></i>
+            </a>
+        </li>
+        <li class="separator">
+            <i class="flaticon-right-arrow"></i>
+        </li>
+        <li class="nav-item">
+            <a href="#">Clientes</a>
+        </li>
+        <li class="separator">
+            <i class="flaticon-right-arrow"></i>
+        </li>
+        <li class="nav-item">
+            <a href="#">Todos</a>
+        </li>
+    </ul>
+{% endblock content-form-page-header %}
+{% block content-form-form-tag-begin %} {% endblock content-form-form-tag-begin %}
+{% block content-form-content %}
+    <div class="card-header">
+        <div class="d-flex align-items-center">
+            <h4 class="card-title"></h4>
+            <a href="/cliente/" role="button"
+               class="btn btn-primary btn-round ml-auto">
+                <i class="fa fa-plus" title="Agregar"></i>Agregar
+            </a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive w-100">
+            <table id="add-row" class="display table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>NIF</th>
+                    <th>Razón social</th>
+                    <th>Dirección</th>
+                    <th>Problación</th>
+                    <th>Provincia</th>
+                    <th>Código Postal</th>
+                    <th>Teléfono</th>
+                    <th>Móvil</th>
+                    <th>e-mail</th>
+                    <th>Estado</th>
+                    <th class="w-10 text-center">Opciones</th>
+                </tr>
+                </thead>
+                <!--tfoot>
+                <tr>
+                    <th>NIF</th>
+                    <th>Razón social</th>
+                    <th>Dirección</th>
+                    <th>Problación</th>
+                    <th>Provincia</th>
+                    <th>Código Postal</th>
+                    <th>Teléfono</th>
+                    <th>Móvil</th>
+                    <th>e-mail</th>
+                    <th>Estado</th>
+                    <th></th>
+                </tr>
+                </tfoot-->
+                <tbody>
+                {% for cliente in clientes %}
+                <tr>
+                    <td>{{ cliente.nif }}</td>
+                    <td>{{ cliente.razon_social }}</td>
+                    <td>{{ cliente.direccion }}</td>
+                    <td>{{ cliente.poblacion }}</td>
+                    <td>{{ cliente.provincia }}</td>
+                    <td>{{ cliente.codigo_postal }}</td>
+                    <td>{{ cliente.telefono }}</td>
+                    <td>{{ cliente.movil }}</td>
+                    <td>{{ cliente.email }}</td>
+                    <td class="text-center">{% if cliente.cliente_estado %}<i class="fa fa-check-square text-success"></i>{% else %}<i class="fa fa-times text-danger"></i>{% endif %}</td>
+                    <td>
+                        <div class="form-button-action">
+                            <a href="/cliente/editar/{{ cliente.id }}" role="button"
+                               class="btn btn-link btn-primary btn-lg">
+                                <span class="fa fa-edit" title="Editar"></span>
+                            </a>
+                            <a href="/cliente/eliminar/{{ cliente.id }}" role="button"
+                               class="btn btn-link btn-danger">
+                                <span class="fa fa-times" title="Eliminar"></span>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock content-form-content %}
+{% block content-form-form-tag-end %} {% endblock content-form-form-tag-end %}
+
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}
+{% block javascripts-page %}
+	<script >
+		$(document).ready(function() {
+			$('#add-row').DataTable({
+				"pageLength": 5,
+				"language": {
+                    "lengthMenu": "Mostrar _MENU_  registros por página",
+                    "zeroRecords": "No hay registros - disculpe",
+                    "info": "Pág. _PAGE_ de _PAGES_",
+                    "infoEmpty": "No hay registros disponibles",
+                    "infoFiltered": "(filtered from _MAX_ total records)",
+                    paginate: {
+                                    previous: 'Ant.',
+                                    next:     'Sig.'
+                                },
+                                aria: {
+                                    paginate: {
+                                        previous: 'Ant.',
+                                        next:     'Sig.'
+                                    }
+                                },
+                     "search": "Filtrado por: _INPUT_ ",
+                },
+			});
+
+			var action = '<td> <div class="form-button-action"> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Editar"> <i class="fa fa-edit"></i> </button> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Eliminar"> <i class="fa fa-times"></i> </button> </div> </td>';
+
+			$('#addRowButton').click(function() {
+				$('#add-row').dataTable().fnAddData([
+					$("#addName").val(),
+					$("#addPosition").val(),
+					$("#addOffice").val(),
+					action
+					]);
+				$('#addRowModal').modal('hide');
+
+			});
+		});
+	</script>
+{% endblock javascripts-page %}
