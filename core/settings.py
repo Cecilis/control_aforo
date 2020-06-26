@@ -87,7 +87,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'MerakiMVSenseDB',
+        'NAME': 'SMF_BDControlAforo',
         'HOST': '127.0.0.1',
         'PORT': 27017,
     }
@@ -139,9 +139,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'core/static'),
 )
-#############################################################
-#############################################################
-ADMINS = (('Ligia', 'ligiapuertas@gmail.com'), ('Ligia', 'ligiapuertas@gmail.com'))
+
+#Allow Log by email or console
+ADMINS = (('Ligia', 'ligiapuertas@gmail.com'), ('Joel', 'joelsegoviacrespo@gmail.com'))
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,
