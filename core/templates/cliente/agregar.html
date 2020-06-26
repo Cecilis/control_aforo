@@ -14,7 +14,6 @@ onclick="javascript:window.location='/cliente/todos'"
     {% block modal-content-title %} Cliente {% endblock modal-content-title %}
     {% block modal-content %}
     {% csrf_token %}
-    Trae errores {{ cliente.errors }}
     <ul class="nav nav-pills nav-secondary nav-pills-no-bd mb-3" id="tabClientes" role="tablist">
         <li class="nav-item">
             <a class="nav-link active" id="pills-general-tab-nobd" data-toggle="pill" href="#pills-general-nobd" role="tab" aria-controls="pills-general-nobd" aria-selected="true">Datos generales</a>
