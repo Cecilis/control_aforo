@@ -90,6 +90,12 @@ DATABASES = {
         'NAME': 'SMF_BDControlAforo',
         'HOST': '127.0.0.1',
         'PORT': 27017,
+    },
+    'mosayk': {
+        'ENGINE': 'djongo',
+        'NAME': 'SMF_BDMosayk',
+        'HOST': '127.0.0.1',
+        'PORT': 27017,
     }
 }
 

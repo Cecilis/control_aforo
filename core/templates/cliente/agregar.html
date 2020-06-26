@@ -76,10 +76,6 @@ onclick="javascript:window.location='/cliente/todos'"
                        maxlength="100" value="{{ cliente.email.value }}"/>
             </div>
             <div class="form-group form-inline col-12">
-                estado > {{ cliente.cliente_estado.value }} < esado
-                <br>
-                estado > {{ cliente.cliente_estado }} < esado
-                <br>
                 <label class="col-form-label mr-3">Estado:</label>
                 <input type="checkbox" name="cliente_estado" id="id_cliente_estado" class="form-control"
                        value="True" {% if cliente.cliente_estado.value %}checked{% endif %} />
