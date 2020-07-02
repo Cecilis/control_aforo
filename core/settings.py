@@ -40,9 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'app',  # Enable the inner app
-    'cliente.apps.ClienteConfig', #Cliente pero vía django templates
+    'app',
+    'cliente.apps.ClienteConfig',
     'instalacion.apps.InstalacionConfig',
+    'camara_zona.apps.CamaraZonaConfig',
     'monitor.apps.MonitorConfig',
 ]
 
@@ -79,10 +80,29 @@ TEMPLATES = [
     },
 ]
 
+
+
 WSGI_APPLICATION = 'core.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
+
+
+# DATABASES = {
+#         'default': {
+#             'ENGINE': 'djongo',
+#             'NAME': 'MerakiMVSenseDBSeguridad',
+#             'ENFORCE_SCHEMA': False,
+#             'CLIENT': {
+#                 'host': 'mongodb://smfactory:S0ftwar4Mf4ac0ory@127.0.0.1:27117',
+#                 'port': 27117,
+#                 'username': 'smfactory',
+#                 'password': 'S0ftwar4Mf4ac0ory',
+#                 'authSource': 'admin',
+#                 'authMechanism': 'SCRAM-SHA-1'
+#             }
+#        }
+#
 
 DATABASES = {
     'default': {
@@ -141,10 +161,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'core/static'),
 )
+
 
 #Allow Log by email or console
 ADMINS = (('Ligia', 'ligiapuertas@gmail.com'), ('Joel', 'joelsegoviacrespo@gmail.com'))

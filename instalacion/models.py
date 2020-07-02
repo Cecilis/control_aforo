@@ -1,14 +1,12 @@
+# -*- encoding: utf-8 -*-
 from djongo import models
 from django import forms
 
-from monitor.forms import MonitorForm
-from monitor.models import Monitor
-from camara_zona.forms import CamaraZonaForm
-from camara_zona.models import CamaraZona
+from cliente.models import Cliente
 
 class Instalacion(models.Model):
-    #_id = models.ObjectIdField()
-    id = models.AutoField(primary_key=True)
+    _id = models.ObjectIdField()
+    id_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     nombre_comercial = models.CharField(max_length=255, blank=False, default='')
     direccion = models.CharField(max_length=255, blank=False, default='')
     telefono = models.CharField(max_length=20, blank=False, default='')
@@ -29,19 +27,3 @@ class Instalacion(models.Model):
     tecnico_email = models.CharField(max_length=255, blank=False, default='')
     instalacion_estado = models.BooleanField(blank=False, default=True)
 
-
-    monitores = models.ArrayField(
-        model_container=Monitor,
-        null=True,
-        blank=True,
-        model_form_class=MonitorForm,
-    )
-
-    camara_zonas = models.ArrayField(
-        model_container=CamaraZona,
-        null=True,
-        blank=True,
-        model_form_class=CamaraZonaForm,
-    )
-
-    objects = models.DjongoManager()

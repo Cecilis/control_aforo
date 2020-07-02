@@ -1,12 +1,8 @@
+# -*- encoding: utf-8 -*-
 from djongo import models
-from django import forms
-
-from instalacion.forms import InstalacionForm
-from instalacion.models import Instalacion
 
 class Cliente(models.Model):
-    #_id = models.ObjectIdField()
-    id = models.AutoField(primary_key=True)
+    _id = models.ObjectIdField()
     nif = models.CharField(max_length=20, blank=False, default='')
     razon_social = models.CharField(max_length=255, blank=False, default='')
     direccion = models.CharField(max_length=255, blank=False, default='')
@@ -27,5 +23,3 @@ class Cliente(models.Model):
     tecnico_movil = models.CharField(max_length=20, blank=False, default='')
     tecnico_email = models.CharField(max_length=255, blank=False, default='')
     cliente_estado= models.BooleanField(blank=False, default=True)
-
-    objects = models.DjongoManager()

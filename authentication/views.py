@@ -1,20 +1,8 @@
 # -*- encoding: utf-8 -*-
-"""
-License: MIT
-Copyright (c) 2019 - present AppSeed.us
-"""
-
-from django.shortcuts import render
-
-# Create your views here.
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.models import User
-from django.forms.utils import ErrorList
-from django.http import HttpResponse
 from django.utils.translation import activate
 from .forms import LoginForm, SignUpForm
-
 
 
 def login_view(request):
@@ -36,6 +24,7 @@ def login_view(request):
             msg = 'Error validating the form'    
 
     return render(request, "accounts/login.html", {"form": form, "msg" : msg})
+
 
 def register_user(request):
     activate('es')

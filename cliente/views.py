@@ -1,7 +1,9 @@
+# -*- encoding: utf-8 -*-
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from djongo import models
+from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.utils.translation import activate
-from cliente.forms import ClienteForm
+from cliente.forms import ClienteForm, ClienteTodosForm
 from cliente.models import Cliente
 
 
@@ -27,49 +29,53 @@ def cliente(request):
     if form.errors:
         for field in form:
             for error in field.errors:
-                print(field.name % " | " % error)
+                #print(field.name % " | " % error)
+
+                print(error)
         # for error in form.non_field_errors:
         #     print('NFE | ')
         #     print(error)
-    return render(request, 'cliente/agregar.html', {'cliente': form})
+    return render(request, 'cliente/agregar.html', {'form': form})
 
 
 @login_required(login_url="/login/")
 def todos(request):
     activate('es')
-    #TODO: Bad Request
-    clientes = Cliente.objects.all()
-    return render(request, "cliente/todos.html", {'clientes': clientes})
+    print('en clientes')
+    clientes =  Cliente.objects.all()
+    for cliente in clientes:
+        cliente.id = str(cliente._id)
+    return render(request, "cliente/todos.html", {'form': clientes})
 
 
 @login_required(login_url="/login/")
 def editar(request, id):
     activate('es')
-    #TODO: Ajustar el try
-    cliente = Cliente.objects.get(id=id)
-    try:
-        form = ClienteForm(instance=cliente)
-    except Exception as e:
-        print('%s (%s)' % (e, type(e)))
-        pass
-    return render(request, 'cliente/editar.html', {'cliente': form})
+    cliente = get_object_or_404(Cliente, _id=id)
+    form = ClienteForm(request.POST or None, instance=cliente)
+    return render(request, 'cliente/editar.html', { 'form' : form })
+
+
 
 @login_required(login_url="/login/")
 def actualizar(request, id):
     activate('es')
-    #TODO: Ajustar Try, falta cao bad request
-    cliente = Cliente.objects.get(id=id)
-    form = ClienteForm(request.POST, instance=cliente)
-
+    cliente = get_object_or_404(Cliente, _id=id)
+    form = ClienteForm(request.POST or None, instance=cliente)
+    print(form.__dict__)
     if form.is_valid():
         form.save()
         return redirect("/cliente/todos")
-    return render(request, 'cliente/editar.html', {'cliente': form})
+    return render(request, 'cliente/editar.html', { 'form' : form })
 
 @login_required(login_url="/login/")
 def eliminar(request, id):
     activate('es')
-    #TODO: Enviar confirmación de eliminación
-    cliente = Cliente.objects.get(id=id)
-    cliente.delete()
+    try:
+        cliente = Cliente.objects.get(_id=id)
+        cliente.delete()
+    except Exception as e:
+        print('%s (%s)' % (e, type(e)))
+        pass
+    #TODO: Enviar mensaje de eliminado
     return redirect("/cliente/todos")

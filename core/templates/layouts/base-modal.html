@@ -5,7 +5,7 @@
 			<div class="modal-dialog modal-lg modal-xl" role="document" >
 				<div class="modal-content">
 					{% block modal-content-form-tag-begin %} {% endblock modal-content-form-tag-begin %}
-					<div class="modal-header">
+					<div class="modal-header bg-custom-gray">
 						<h5 class="modal-title font-weight-bold" id="modalFormTitle">
 							{% block modal-content-title %} {% endblock modal-content-title %}
 						</h5>
@@ -13,10 +13,10 @@
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
-					<div class="modal-body bg-gray-dark m-0 p-2">
+					<div class="modal-body">
 						{% block modal-content %} {% endblock modal-content %}
 					</div>
-					<div class="modal-footer py-1">
+					<div class="modal-footer py-2 bg-custom-gray-dark ">
 						{% block modal-content-footer %} {% endblock modal-content-footer %}
 					</div>
 					{% block modal-content-form-tag-end %} {% endblock modal-content-form-tag-end %}

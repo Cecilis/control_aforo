@@ -33,9 +33,87 @@
 .h-90{height:90%!important}
 .h-95{height:95%!important}
 
+.bg-gray {background-color:#343a40  !important;}
+.bg-gray-dark {background-color:#343a40  !important;}
+.bg-custom-gray-dark {background-color:#f1f3f5  !important;}
+.bg-custom-gray {background-color: #f1f1f1 !important;}
+.bg-custom-gray-light {background-color: #f9fbfd !important;}
 
-.bg-gray-dark {background-color: #f9fbfd !important;}
-.bg-gray {background-color: #f1f1f1 !important;}
-.bg-gray-light {background-color: #f9fbfd !important;}
+.bg-gray-30 {background-color: #4c4c4c !important;}
+.bg-gray-60 {background-color: #999999 !important;}
+.bg-gray-90 {background-color: #E5E5E5 !important;}
 
 iframe{overflow:hidden;}
+
+/*Datatable
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  background: none;
+  color: black!important;
+  border-radius: 4px;
+  border: 1px solid #828282;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:active {
+  background: none;
+  color: black!important;
+}
+
+.paginate_button > a{
+    background-color:#000000 !important;
+}*/
+
+
+/*lg
+.pagination>li:first-child>a,
+.pagination>li>a,
+.pagination>li:last-child>a{
+    border-radius: .25rem!important;
+    padding:.5rem 1rem;
+    font-size:1.25rem;
+    line-height:1.5;
+    border-radius:.3rem
+}
+*/
+
+/*sm*/
+.pagination>li:first-child>a,
+.pagination>li>a,
+.pagination>li:last-child>a{
+    border-radius: .25rem!important;
+    color:#fff!important;
+    background-color:#007bff!important;
+    border-color:#007bff!important;
+}
+
+.pagination>li:first-child>a:hover,
+.pagination>li>a:hover,
+.pagination>li:last-child>a:hover{
+    color:#fff!important;
+    background-color:#0069d9!important;
+    border-color:#0062cc!important;
+}
+.pagination>li:first-child>a:focus,
+.pagination>li>a:focus,
+.pagination>li:last-child>a:focus{
+    color:#fff;background-color:#0069d9;
+    border-color:#0062cc;
+    box-shadow:0 0 0 .2rem rgba(38,143,255,.5)
+}
+.pagination>li:first-child>a:focus,
+.pagination>li>a:focus,
+.pagination>li:last-child>a:focus{
+    color:#fff!important;
+    background-color:#007bff!important;
+    border-color:#007bff!important;
+}
+
+/*smborder-radius:.2rem!important;*/
+.pagination>li:first-child>a,
+.pagination>li>a,
+.pagination>li:last-child>a{
+    border-radius: .25rem!important;
+    padding:.25rem .5rem!important;
+    font-size:.875rem!important;
+    line-height:1.5!important;
+
+}

@@ -20,8 +20,9 @@ urlpatterns = [
 
     path('api/', include('monitor.urls')),
     path('monitor/', include('monitor.urls')),
-
+    path('camara_zona/', include('camara_zona.urls')),
     path('cliente/', include('cliente.urls')),
     path('instalacion/', include('instalacion.urls')),
+
 
 ]

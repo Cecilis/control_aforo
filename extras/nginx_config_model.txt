@@ -1,3 +1,11 @@
+sudo fuser -k 8081/tcp
+
+<form class="success" id="form-id" action="{% url "formly_dt_page_create" pk=selected_survey.pk %}" method="post">
+    {% csrf_token %}
+    <a class="nav-link {% if page == selected_page %}active{% endif %}" onclick="document.getElementById('form-id').submit();">Add page</a>
+</form>
+
+
 project's root directory with a command similar to this:
 gunicorn -c gunicorn/gunicorn-config.py your-project.wsgi
 gunicorn -c gunicorn/gunicorn-config.py core.wsgi
